@@ -380,7 +380,6 @@ export class MySliderV2 extends LitElement {
             min: this._config!.min ? this._config!.min : 0,
             max: this._config!.max ? this._config!.max : 100,
             step: this._config!.step ? this._config!.step : 1,
-			template: this._config!.template ? this._config!.template : none,
             mode: this._config!.mode !== undefined ? this._config!.mode :
                 this._config!.colorMode !== undefined ? this._config!.colorMode :
                     this._config!.coverMode !== undefined ? this._config!.coverMode :
@@ -408,10 +407,10 @@ export class MySliderV2 extends LitElement {
                     tmpVal = (tmpVal * (100 - defaultConfig.sliderMin) / 100) + defaultConfig.sliderMin
                     tmpVal = tmpVal < defaultConfig.sliderMin ? defaultConfig.sliderMin : tmpVal
                 }
-                else if (defaultConfig.mode === 'template') {
-                    this.oldVal = Math.ceil(percentage(this._config!.template, 256))
+                else if (defaultConfig.mode === 'white') {
+                    this.oldVal = Math.ceil(percentage(this.entity.attributes.rgbw_color, 256))
                     if (this.entity.state === 'on') {
-                        tmpVal = Math.ceil(percentage(this.entity._config!.template, 256))
+                        tmpVal = Math.ceil(percentage(this.entity.attributes.rgbw_color, 256))
                         if (!defaultConfig.showMin && defaultConfig.min) { // Subtracting savedMin to make slider 0 be far left
                             tmpVal = tmpVal - defaultConfig.min
                         }
@@ -716,8 +715,8 @@ export class MySliderV2 extends LitElement {
                 else if (this._config.mode === 'saturation') {
                     this._setSaturation(this.entity, val)
                 }
-                else if (this._config.mode === 'template') {
-                    this._setTemplate(this.entity, val)
+                else if (this._config.mode === 'white') {
+                    this._setWhite(this.entity, val)
                 }
                 break
             case 'input_number':
@@ -764,10 +763,20 @@ export class MySliderV2 extends LitElement {
         this.oldVal = value
     }
 	
-    private _setTemplate(entity, value): void {
+    private _setWhite(entity, value): void {
+		let r = 0
+		let g = 0
+		let b = 0
+		let w = 0
+		if (entity.attributes.rgbw_color) {
+			r = entity.attributes.rgbw_color[0]
+			g = entity.attributes.rgbw_color[1]
+			b = entity.attributes.rgbw_color[2]
+			w = entity.attributes.rgbw_color[3]
+		}
         this.hass.callService("light", "turn_on", {
             entity_id: entity.entity_id,
-            rgbw_color: (0,0,0 value * 2.56)
+            rgbw_color: [r,g,b,value * 2.56]
         })
         this.oldVal = value
     }
