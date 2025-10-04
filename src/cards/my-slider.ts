@@ -416,6 +416,7 @@ export class MySliderV2 extends LitElement {
                     }
                     tmpVal = (tmpVal * (100 - defaultConfig.sliderMin) / 100) + defaultConfig.sliderMin
                     tmpVal = tmpVal < defaultConfig.sliderMin ? defaultConfig.sliderMin : tmpVal
+					tmpVal = tmpVal == 0 ? 66 : tmpVal
                 }
                 else if (defaultConfig.mode === 'temperature') {
                     if (this.entity.state !== 'on') break
