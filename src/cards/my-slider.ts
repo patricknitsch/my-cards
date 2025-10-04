@@ -407,6 +407,17 @@ export class MySliderV2 extends LitElement {
                     tmpVal = (tmpVal * (100 - defaultConfig.sliderMin) / 100) + defaultConfig.sliderMin
                     tmpVal = tmpVal < defaultConfig.sliderMin ? defaultConfig.sliderMin : tmpVal
                 }
+                else if (defaultConfig.mode === 'template') {
+                    this.oldVal = Math.ceil(percentage(this.entity, 256))
+                    if (this.entity.state === 'on') {
+                        tmpVal = Math.ceil(percentage(this.entity.attributes.brightness, 256))
+                        if (!defaultConfig.showMin && defaultConfig.min) { // Subtracting savedMin to make slider 0 be far left
+                            tmpVal = tmpVal - defaultConfig.min
+                        }
+                    }
+                    tmpVal = (tmpVal * (100 - defaultConfig.sliderMin) / 100) + defaultConfig.sliderMin
+                    tmpVal = tmpVal < defaultConfig.sliderMin ? defaultConfig.sliderMin : tmpVal
+                }
                 else if (defaultConfig.mode === 'temperature') {
                     if (this.entity.state !== 'on') break
                     defaultConfig.min = this._config!.min ? this._config!.min : this.entity.attributes.min_mireds
