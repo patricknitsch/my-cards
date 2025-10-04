@@ -409,6 +409,7 @@ export class MySliderV2 extends LitElement {
                 }
                 else if (defaultConfig.mode === 'white' && this.entity.attributes.color_mode === 'rgbw') {
 					tmpVal = tmpVal == 0 ? 66 : tmpVal
+					break
 					if (this.entity.state !== 'on') break
 					tmpVal = tmpVal == 0 ? 44 : tmpVal
 					this.oldVal = parseFloat(this.entity.attributes.rgbw_color[3])
