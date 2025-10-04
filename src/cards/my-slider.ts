@@ -380,6 +380,7 @@ export class MySliderV2 extends LitElement {
             min: this._config!.min ? this._config!.min : 0,
             max: this._config!.max ? this._config!.max : 100,
             step: this._config!.step ? this._config!.step : 1,
+			template: this._config!.template ? this._config!.template : none,
             mode: this._config!.mode !== undefined ? this._config!.mode :
                 this._config!.colorMode !== undefined ? this._config!.colorMode :
                     this._config!.coverMode !== undefined ? this._config!.coverMode :
@@ -408,9 +409,9 @@ export class MySliderV2 extends LitElement {
                     tmpVal = tmpVal < defaultConfig.sliderMin ? defaultConfig.sliderMin : tmpVal
                 }
                 else if (defaultConfig.mode === 'template') {
-                    this.oldVal = Math.ceil(percentage(this.entity.colorMode, 256))
+                    this.oldVal = Math.ceil(percentage(this._config.template, 256))
                     if (this.entity.state === 'on') {
-                        tmpVal = Math.ceil(percentage(this.entity.colorMode, 256))
+                        tmpVal = Math.ceil(percentage(this._config.template, 256))
                         if (!defaultConfig.showMin && defaultConfig.min) { // Subtracting savedMin to make slider 0 be far left
                             tmpVal = tmpVal - defaultConfig.min
                         }
