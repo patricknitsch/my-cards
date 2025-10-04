@@ -396,7 +396,7 @@ export class MySliderV2 extends LitElement {
         switch (entityType) {
 
             case 'light': /* ------------ LIGHT ------------ */
-                if (defaultConfig.mode === 'white') {
+                if (defaultConfig.mode === 'brightness') {
                     this.oldVal = Math.ceil(percentage(this.entity.attributes.brightness, 256))
                     if (this.entity.state === 'on') {
                         tmpVal = Math.ceil(percentage(this.entity.attributes.brightness, 256))
@@ -407,17 +407,16 @@ export class MySliderV2 extends LitElement {
                     tmpVal = (tmpVal * (100 - defaultConfig.sliderMin) / 100) + defaultConfig.sliderMin
                     tmpVal = tmpVal < defaultConfig.sliderMin ? defaultConfig.sliderMin : tmpVal
                 }
-                else if (defaultConfig.mode === 'brightness') {
-					tmpVal = 66
-					//if (this.entity.state !== 'on') break
-					//tmpVal = tmpVal == 0 ? 44 : tmpVal
-					//this.oldVal = parseFloat(this.entity.attributes.rgbw_color[3])
-					//tmpVal = parseFloat(this.entity.attributes.rgbw_color[3])
-                    //if (!defaultConfig.showMin && defaultConfig.min) { // Subtracting savedMin to make slider 0 be far left
-                    //    tmpVal = tmpVal - defaultConfig.min
-                    //}
-                    //tmpVal = (tmpVal * (100 - defaultConfig.sliderMin) / 100) + defaultConfig.sliderMin
-                    //tmpVal = tmpVal < defaultConfig.sliderMin ? defaultConfig.sliderMin : tmpVal
+                else if (defaultConfig.mode === 'white') {
+					if (this.entity.state !== 'on') break
+					tmpVal = tmpVal == 0 ? 44 : tmpVal
+					this.oldVal = parseFloat(this.entity.attributes.rgbw_color[3])
+					tmpVal = parseFloat(this.entity.attributes.rgbw_color[3])
+                    if (!defaultConfig.showMin && defaultConfig.min) { // Subtracting savedMin to make slider 0 be far left
+                        tmpVal = tmpVal - defaultConfig.min
+                    }
+                    tmpVal = (tmpVal * (100 - defaultConfig.sliderMin) / 100) + defaultConfig.sliderMin
+                    tmpVal = tmpVal < defaultConfig.sliderMin ? defaultConfig.sliderMin : tmpVal
                 }
                 else if (defaultConfig.mode === 'temperature') {
                     if (this.entity.state !== 'on') break
