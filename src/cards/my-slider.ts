@@ -407,7 +407,7 @@ export class MySliderV2 extends LitElement {
                     tmpVal = (tmpVal * (100 - defaultConfig.sliderMin) / 100) + defaultConfig.sliderMin
                     tmpVal = tmpVal < defaultConfig.sliderMin ? defaultConfig.sliderMin : tmpVal
                 }
-                else if (defaultConfig.mode === 'white' && this.entity.attributes.color_mode === 'rgbw') {
+                else if (defaultConfig.mode === 'white') {
 					tmpVal = 66
 					break
 					if (this.entity.state !== 'on') break
