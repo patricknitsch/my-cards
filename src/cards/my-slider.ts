@@ -409,9 +409,9 @@ export class MySliderV2 extends LitElement {
                     tmpVal = tmpVal < defaultConfig.sliderMin ? defaultConfig.sliderMin : tmpVal
                 }
                 else if (defaultConfig.mode === 'template') {
-                    this.oldVal = Math.ceil(percentage(this._config!.template, 256))
+                    this.oldVal = Math.ceil(percentage(this.entity.attributes.rgbw_color[3], 256))
                     if (this.entity.state === 'on') {
-                        tmpVal = Math.ceil(percentage(this._config!.template, 256))
+                        tmpVal = Math.ceil(percentage(this.entity.attributes.rgbw_color[3], 256))
                         if (!defaultConfig.showMin && defaultConfig.min) { // Subtracting savedMin to make slider 0 be far left
                             tmpVal = tmpVal - defaultConfig.min
                         }
