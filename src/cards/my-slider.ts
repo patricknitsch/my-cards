@@ -409,9 +409,9 @@ export class MySliderV2 extends LitElement {
                     tmpVal = tmpVal < defaultConfig.sliderMin ? defaultConfig.sliderMin : tmpVal
                 }
                 else if (defaultConfig.mode === 'template') {
-                    this.oldVal = Math.ceil(percentage(this.entity.attributes.rgbw_color[3], 256))
+                    this.oldVal = Math.ceil(percentage(this._config!.template, 256))
                     if (this.entity.state === 'on') {
-                        tmpVal = Math.ceil(percentage(this.entity.attributes.rgbw_color[3], 256))
+                        tmpVal = Math.ceil(percentage(this.entity._config!.template, 256))
                         if (!defaultConfig.showMin && defaultConfig.min) { // Subtracting savedMin to make slider 0 be far left
                             tmpVal = tmpVal - defaultConfig.min
                         }
@@ -716,6 +716,9 @@ export class MySliderV2 extends LitElement {
                 else if (this._config.mode === 'saturation') {
                     this._setSaturation(this.entity, val)
                 }
+                else if (this._config.mode === 'template') {
+                    this._setTemplate(this.entity, val)
+                }
                 break
             case 'input_number':
             case 'number':
@@ -760,6 +763,15 @@ export class MySliderV2 extends LitElement {
         })
         this.oldVal = value
     }
+	
+    private _setTemplate(entity, value): void {
+        this.hass.callService("light", "turn_on", {
+            entity_id: entity.entity_id,
+            rgbw_color: (0,0,0 value * 2.56)
+        })
+        this.oldVal = value
+    }
+	
     private _setColorTemp(entity, value): void {
         this.hass.callService("light", "turn_on", {
             entity_id: entity.entity_id,
