@@ -396,7 +396,7 @@ export class MySliderV2 extends LitElement {
         switch (entityType) {
 
             case 'light': /* ------------ LIGHT ------------ */
-                if (defaultConfig.mode === 'brightnesss') {
+                if (defaultConfig.mode === 'brightness') {
                     this.oldVal = Math.ceil(percentage(this.entity.attributes.brightness, 256))
                     if (this.entity.state === 'on') {
                         tmpVal = Math.ceil(percentage(this.entity.attributes.brightness, 256))
